@@ -30,6 +30,7 @@
     </form>
     </br>
     <h1>Table Data</h1>
+    <?php echo $links ?>
     <div id='tabledata'>
         <table>
             <tr>
