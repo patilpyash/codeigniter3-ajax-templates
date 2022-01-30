@@ -55,7 +55,15 @@ class News extends CI_Controller
     public function searchNews()
     {
         $search = $this->input->post('search');
-        $data['results'] = $this->News_model->searchNews($search);
+        $config['base_url'] = base_url('News/searchNews');
+        $config['per_page'] = 5;
+        $config['total_rows'] = $this->News_model->searchNewsCount($search);
+        $config['uri_segment'] = 3;
+        $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+        //$page = ($page - 1) * $config['per_page'];
+        $this->pagination->initialize($config);
+        $data['results'] = $this->News_model->searchNews($page,$config['per_page'], $search);
+        $data['links'] =  $this->pagination->create_links();
         $this->load->view('news',$data);
     }
 }

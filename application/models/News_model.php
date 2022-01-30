@@ -35,10 +35,17 @@ class News_model extends CI_Model{
         return $query->num_rows();
     }
 
-    public function searchNews($search){
+    public function searchNews($offset, $limit,$search){
+        $this->db->limit($offset, $limit);
         $this->db->like('title', $search);
         $this->db->or_like('text', $search);
         $query = $this->db->get('news');
         return $query->result();
+    }
+    public function searchNewsCount($search){
+        $this->db->like('title', $search);
+        $this->db->or_like('text', $search);
+        $query = $this->db->get('news');
+        return $query->num_rows();
     }
 }
