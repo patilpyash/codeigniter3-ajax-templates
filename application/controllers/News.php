@@ -62,7 +62,8 @@ class News extends CI_Controller
         $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
         //$page = ($page - 1) * $config['per_page'];
         $this->pagination->initialize($config);
-        $data['results'] = $this->News_model->searchNews($page,$config['per_page'], $search);
+        $data['results'] = $this->News_model->searchNews($config['per_page'],$page, $search);
+        echo json_encode($data);
         $data['links'] =  $this->pagination->create_links();
         $this->load->view('news',$data);
     }
